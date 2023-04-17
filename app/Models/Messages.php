@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class User extends Model
+class Messages extends Model
 {
     use HasFactory;
 	//public $timestamps = false;
@@ -17,13 +17,13 @@ class User extends Model
      */
     //protected $table = 'tbl_items'; in case your table name convention is different
     protected $fillable=[
-        'name',
-        'username',
-        'password'
+        'message',
+        'group_id',
+        'sender_id'
     ];
 
-    public function users(): HasMany
+    public function message(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Message::class);
     }
 }
