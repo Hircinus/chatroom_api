@@ -65,6 +65,28 @@ class PageController extends Controller
         return response($arrMessages, 201);
     }
 
+    public function setGroup(Request $request){
+        $fields = $request->validate([
+            'user_1_id' => 'required|integer',
+            'user_2_id' => 'required|integer'
+        ]);
+        $group = Groups::create([
+            'user_1_id' => $fields['user_1_id'],
+            'user_2_id' => $fields['user_2_id']
+        ]);
+        return response($group, 201);
+    }
+    public function getGroups(){
+        $arrGroups = Groups::all();
+        return response($arrGroups,201);
+    }
+
+    public function getGroupsByGroupId(){
+        $arrGroups = Groups::where('group_id', 'LIKE', $search)
+                                ->get();
+        return response($arrGroups,201);
+    }
+
     /* TODO
 
     public function getItem($search){
