@@ -39,31 +39,33 @@ class PageController extends Controller
         return response($arrayUsers, 201);
     }
 
-    /* TODO
-
-    public function setItem(Request $request){
+    public function setMessage(Request $request){
         $fields = $request->validate([
-            'name'          => 'required|string',
-            'description'   => 'required|string',
-            'price'         => 'required|decimal:2',//there is not validate double
-            'image'         => 'image|nullable|max:1999',
-            'category_id'   => 'required|integer',
+            'message'        => 'required|string',
+            'group_id' => 'required|integer',
+            'sender_id' => 'required|integer'
         ]);
-       $item = Item::create([
-            'name'        => $fields['name'],
-            'description' => $fields['description'],
-            'price'       => $fields['price'],
-            //'image'=> $fields['image']:null,
-            'category_id'  => $fields['category_id']
+        $message = Messages::create([
+            'message'        => $fields['message'],
+            'group_id' => $fields['group_id'],
+            'group_id' => $fields['group_id']
         ]);
 
-        return response($item, 201);
+        return response($message, 201);
     }
 
-    public function getItems(){
-        $arryItems = Item::all();
-        return response($arryItems, 201);
+    public function getMessages(){
+        $arrMessages = Messages::all();
+        return response($arrMessages, 201);
     }
+
+    public function getMessagesByGroupId(){
+        $arrMessages = Messages::where('group_id', 'LIKE', $search)
+                            ->get();
+        return response($arrMessages, 201);
+    }
+
+    /* TODO
 
     public function getItem($search){
         $arryItems = Item::where('name', 'LIKE', '%'.$search.'%')
