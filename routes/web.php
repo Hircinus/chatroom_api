@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/welcome', function () {
+    return "I'm Pakita";
+});
+
+Route::get('/ext/getUsers', function(){
+    $users = \App\Models\User::all();
+    return view('users', ['users' => $users]);
+});
