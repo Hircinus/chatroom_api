@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
-use App\Models\Category;
-use App\Models\Item;
+use App\Models\Message;
+use App\Models\User;
+use App\Models\Group;
 
 class PageController extends Controller
 {
@@ -45,7 +46,7 @@ class PageController extends Controller
             'group_id' => 'required|integer',
             'sender_id' => 'required|integer'
         ]);
-        $message = Messages::create([
+        $message = Message::create([
             'message'        => $fields['message'],
             'group_id' => $fields['group_id'],
             'group_id' => $fields['group_id']
@@ -55,12 +56,12 @@ class PageController extends Controller
     }
 
     public function getMessages(){
-        $arrMessages = Messages::all();
+        $arrMessages = Message::all();
         return response($arrMessages, 201);
     }
 
     public function getMessagesByGroupId(){
-        $arrMessages = Messages::where('group_id', 'LIKE', $search)
+        $arrMessages = Message::where('group_id', 'LIKE', $search)
                             ->get();
         return response($arrMessages, 201);
     }
@@ -70,19 +71,19 @@ class PageController extends Controller
             'user_1_id' => 'required|integer',
             'user_2_id' => 'required|integer'
         ]);
-        $group = Groups::create([
+        $group = Group::create([
             'user_1_id' => $fields['user_1_id'],
             'user_2_id' => $fields['user_2_id']
         ]);
         return response($group, 201);
     }
     public function getGroups(){
-        $arrGroups = Groups::all();
+        $arrGroups = Group::all();
         return response($arrGroups,201);
     }
 
     public function getGroupsByGroupId(){
-        $arrGroups = Groups::where('group_id', 'LIKE', $search)
+        $arrGroups = Group::where('group_id', 'LIKE', $search)
                                 ->get();
         return response($arrGroups,201);
     }

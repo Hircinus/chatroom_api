@@ -24,7 +24,7 @@ Route::post('/ext/setUser', [PageController::class, 'setUser']);
 Route::get('/ext/getUsers', [PageController::class, 'getUsers']);
 Route::get('/ext/getUser/{search}', [PageController::class, 'getUser']);
 
-Route::post('/ext/setMessage', [PageController::class, 'setItem']);
+Route::post('/ext/setMessage', [PageController::class, 'setMessage']);
 Route::get('/ext/getMessages', [PageController::class, 'getMessages']);
 
 /*
