@@ -17,7 +17,7 @@ class PageController extends Controller
         $fields = $request->validate([
             'name'        => 'required|string',
             'username' => 'required|string',
-            'password' => 'required|hash'
+            'password' => 'required|string'
         ]);
         $user = User::create([
             'name'        => $fields['name'],
@@ -34,8 +34,8 @@ class PageController extends Controller
     }
 
     public function getUser($user, $pass){
-        $arrayUsers = User::where('username', 'LIKE', '%'.$user.'%')
-                        ->andWhere('password', 'LIKE', '%'.$pass.'%')
+        $arrayUsers = User::where('username', 'LIKE', $user)
+                        ->where('password', 'LIKE', $pass)
                         ->get();
         return response($arrayUsers, 201);
     }
@@ -49,7 +49,7 @@ class PageController extends Controller
         $message = Message::create([
             'message'        => $fields['message'],
             'group_id' => $fields['group_id'],
-            'group_id' => $fields['group_id']
+            'sender_id' => $fields['sender_id']
         ]);
 
         return response($message, 201);
@@ -60,10 +60,16 @@ class PageController extends Controller
         return response($arrMessages, 201);
     }
 
-    public function getMessagesByGroupId(){
-        $arrMessages = Message::where('group_id', 'LIKE', $search)
+    public function getMessagesByGroupId($groupId){
+        $arrMessages = Message::where('group_id', 'LIKE', $groupId)
                             ->get();
         return response($arrMessages, 201);
+    }
+
+    public function getMessageById($search){
+        $arrGroups = Message::where('id', 'LIKE', $search)
+                                ->get();
+        return response($arrGroups,201);
     }
 
     public function setGroup(Request $request){
@@ -82,8 +88,8 @@ class PageController extends Controller
         return response($arrGroups,201);
     }
 
-    public function getGroupsByGroupId(){
-        $arrGroups = Group::where('group_id', 'LIKE', $search)
+    public function getGroupById($search){
+        $arrGroups = Group::where('id', 'LIKE', $search)
                                 ->get();
         return response($arrGroups,201);
     }
