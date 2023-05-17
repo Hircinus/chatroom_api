@@ -22,7 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/ext/setUser', [PageController::class, 'setUser']);
 Route::get('/ext/getUsers', [PageController::class, 'getUsers']);
-Route::get('/ext/getUser/{search}and{pass}', [PageController::class, 'getUser']);
+Route::get('/ext/getUser/{search}/{pass}', [PageController::class, 'getUser']);
+Route::get('/ext/validateUser/{search}', [PageController::class, 'validateUser']);
+Route::get('/ext/getUser/{id}', [PageController::class, 'getUserById']);
 
 Route::post('/ext/setMessage', [PageController::class, 'setMessage']);
 Route::get('/ext/getMessages', [PageController::class, 'getMessages']);
@@ -31,7 +33,8 @@ Route::get('/ext/getMessage/{messageId}', [PageController::class, 'getMessageByI
 
 Route::post('/ext/setGroup', [PageController::class, 'setGroup']);
 Route::get('/ext/getGroups', [PageController::class, 'getGroups']);
-Route::get('/ext/getGroup/{search}', [PageController::class, 'getGroupById']);
+Route::get('/ext/getGroup/{sender}/{receiver}', [PageController::class, 'getGroup']);
+Route::get('ext/getGroup/{group_id}', [PageController::class, 'getGroupById']);
 
 /*
 Route::get('/ext/getItem/{search}', [PageController::class, 'getItem']);

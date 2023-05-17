@@ -40,6 +40,18 @@ class PageController extends Controller
         return response($arrayUsers, 201);
     }
 
+    public function getUserById($id) {
+        $arrayUsers = User::where('id', 'LIKE', $id)
+                        ->get();
+        return response($arrayUsers, 201);
+    }
+
+    public function validateUser($user){
+        $arrayUsers = User::where('username', 'LIKE', $user)
+                        ->get();
+        return response($arrayUsers, 201);
+    }
+
     public function setMessage(Request $request){
         $fields = $request->validate([
             'message'        => 'required|string',
@@ -92,6 +104,18 @@ class PageController extends Controller
         $arrGroups = Group::where('id', 'LIKE', $search)
                                 ->get();
         return response($arrGroups,201);
+    }
+
+    public function getGroup($sender, $receiver) {
+        $group = Group::where('user_1_id', 'LIKE', $sender)
+        ->where('user_2_id', 'LIKE', $receiver)
+                                ->get();
+        if(isset($group)) {
+            return response($group,201);
+        }
+        else {
+            return response($group, 404);
+        }
     }
 
     /* TODO

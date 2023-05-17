@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('group_id')->unsigned();
             $table->foreign('group_id')
                     ->references('id')
-                    ->on('users')
+                    ->on('groups')
                     ->onCascade('delete');
             $table->integer('sender_id')->unsigned();
             $table->foreign('sender_id')
